@@ -1,7 +1,7 @@
 import { io, Socket } from 'socket.io-client';
 import type { MissionUpdate, FleetUpdate, LatLng } from '../../../shared/types';
 
-const WS_URL = import.meta.env.VITE_WS_URL || 'http://localhost:3000';
+const WS_URL = (import.meta.env.VITE_WS_URL || 'http://localhost:3000').replace(/\/$/, '');
 
 export interface SystemNotification {
   type: 'info' | 'warning' | 'error' | 'success';
