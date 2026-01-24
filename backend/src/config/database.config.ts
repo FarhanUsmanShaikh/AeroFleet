@@ -13,7 +13,7 @@ export const getDatabaseConfig = (configService: ConfigService): TypeOrmModuleOp
       type: 'sqlite',
       database: configService.get('DB_DATABASE', './drone_survey.db'),
       entities: [Drone, Mission, Waypoint, MissionReport],
-      synchronize: true, // Set to true for assessment projects to ensure tables are created on fresh deploys
+      synchronize: true,
       logging: configService.get('NODE_ENV') === 'development',
     };
   }
