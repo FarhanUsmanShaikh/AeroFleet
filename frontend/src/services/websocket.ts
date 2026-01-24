@@ -48,14 +48,20 @@ class WebSocketService {
       return;
     }
 
-    console.log('Connecting to WebSocket server...');
+    // Ensure URL is clean and uses the correct protocol
+    const cleanUrl = WS_URL.replace(/\/$/, '');
+    const connectionUrl = cleanUrl.startsWith('http') ? cleanUrl : `https://${cleanUrl}`;
 
-    this.socket = io(`${WS_URL}/missions`, {
-      transports: ['websocket', 'polling'],
-      timeout: 5000,
+    console.log(`📡 Connecting to Intelligence Link: ${connectionUrl}/missions`);
+
+    this.socket = io(`${connectionUrl}/missions`, {
+      transports: ['polling', 'websocket'], // Try polling first for faster wake-up on free tiers
+      timeout: 20000, // Increased to 20s to allow for Render cold starts
+      secure: connectionUrl.startsWith('https'),
       reconnection: true,
       reconnectionAttempts: this.maxReconnectAttempts,
       reconnectionDelay: this.reconnectDelay,
+      autoConnect: true
     });
 
     this.setupEventHandlers();

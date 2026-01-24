@@ -12,7 +12,7 @@ const getDatabaseConfig = (configService) => {
             type: 'sqlite',
             database: configService.get('DB_DATABASE', './drone_survey.db'),
             entities: [drone_entity_1.Drone, mission_entity_1.Mission, waypoint_entity_1.Waypoint, mission_report_entity_1.MissionReport],
-            synchronize: configService.get('NODE_ENV') !== 'production',
+            synchronize: true,
             logging: configService.get('NODE_ENV') === 'development',
         };
     }
