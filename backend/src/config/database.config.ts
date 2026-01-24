@@ -7,17 +7,17 @@ import { MissionReport } from '../entities/mission-report.entity';
 
 export const getDatabaseConfig = (configService: ConfigService): TypeOrmModuleOptions => {
   const dbType = configService.get('DB_TYPE', 'mysql');
-  
+
   if (dbType === 'sqlite') {
     return {
       type: 'sqlite',
       database: configService.get('DB_DATABASE', './drone_survey.db'),
       entities: [Drone, Mission, Waypoint, MissionReport],
-      synchronize: configService.get('NODE_ENV') !== 'production',
+      synchronize: true, // Set to true for assessment projects to ensure tables are created on fresh deploys
       logging: configService.get('NODE_ENV') === 'development',
     };
   }
-  
+
   // MySQL configuration
   return {
     type: 'mysql',
