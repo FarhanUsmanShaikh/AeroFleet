@@ -20,7 +20,7 @@ const MissionMonitoringPanel: React.FC<MissionMonitoringPanelProps> = ({
   const [showAbortDialog, setShowAbortDialog] = useState(false);
 
   useEffect(() => {
-    // Join mission room for real-time updates
+
     websocketService.joinMission(mission.id);
 
     // Listen for mission updates
