@@ -1,0 +1,30 @@
+import { Repository } from 'typeorm';
+import { Mission } from '../entities/mission.entity';
+import { Drone } from '../entities/drone.entity';
+import { Waypoint } from '../entities/waypoint.entity';
+import { MissionService } from './mission.service';
+import { FleetService } from './fleet.service';
+export declare class MissionSimulatorService {
+    private missionRepository;
+    private droneRepository;
+    private waypointRepository;
+    private missionService;
+    private fleetService;
+    private readonly logger;
+    private activeSimulations;
+    private readonly UPDATE_INTERVAL;
+    private readonly BATTERY_CONSUMPTION_RATE;
+    constructor(missionRepository: Repository<Mission>, droneRepository: Repository<Drone>, waypointRepository: Repository<Waypoint>, missionService: MissionService, fleetService: FleetService);
+    startSimulation(missionId: string): Promise<void>;
+    pauseSimulation(missionId: string): Promise<void>;
+    resumeSimulation(missionId: string): Promise<void>;
+    stopSimulation(missionId: string): Promise<void>;
+    private updateMissionProgress;
+    private calculateDistanceCovered;
+    private calculateDistance;
+    private toRadians;
+    private generateCompletionReport;
+    stopAllSimulations(): Promise<void>;
+    getActiveSimulationsCount(): number;
+    isSimulationActive(missionId: string): boolean;
+}

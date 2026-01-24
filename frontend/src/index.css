@@ -1,0 +1,146 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    @apply antialiased;
+  }
+  
+  body {
+    @apply font-sans text-slate-800 bg-[#f8fafc];
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  }
+
+  /* Custom Scrollbar for a more premium feel */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    @apply bg-slate-200 rounded-full hover:bg-slate-300 transition-colors;
+  }
+
+  /* Force hardware acceleration for smoother transitions and scrolls */
+  .gpu-accelerated {
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    perspective: 1000px;
+  }
+
+  .smooth-scroll {
+    -webkit-overflow-scrolling: touch;
+    scroll-behavior: smooth;
+    will-change: scroll-position;
+  }
+}
+
+/* Custom styles for Leaflet map */
+.leaflet-container {
+  height: 100%;
+  width: 100%;
+  border-radius: 12px;
+}
+
+/* Custom button styles with premium gradients */
+@layer components {
+  .btn-primary {
+    @apply relative overflow-hidden bg-gradient-sky text-white font-bold py-2.5 px-6 rounded-xl 
+           shadow-lg hover:shadow-glow transform hover:-translate-y-0.5 
+           transition-all duration-300 ease-[cubic-bezier(0.34,1.56,0.64,1)];
+  }
+  
+  .btn-secondary {
+    @apply bg-white hover:bg-slate-50 text-slate-700 font-bold py-2.5 px-5 rounded-xl 
+           border-2 border-slate-200 hover:border-slate-300
+           shadow-sm hover:shadow-md transform hover:-translate-y-0.5 
+           transition-all duration-300 ease-out;
+  }
+  
+  .btn-success {
+    @apply relative overflow-hidden bg-gradient-success text-white font-bold py-2.5 px-6 rounded-xl 
+           shadow-lg hover:shadow-glow-green transform hover:-translate-y-0.5 
+           transition-all duration-300 ease-[cubic-bezier(0.34,1.56,0.64,1)];
+  }
+  
+  .btn-warning {
+    @apply relative overflow-hidden bg-gradient-warning text-white font-bold py-2.5 px-6 rounded-xl 
+           shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 
+           transition-all duration-300 ease-out;
+  }
+  
+  .btn-danger {
+    @apply relative overflow-hidden bg-gradient-danger text-white font-bold py-2.5 px-6 rounded-xl 
+           shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 
+           transition-all duration-300 ease-out;
+  }
+  
+  .btn-purple {
+    @apply relative overflow-hidden bg-gradient-purple text-white font-bold py-2.5 px-6 rounded-xl 
+           shadow-lg hover:shadow-glow-purple transform hover:-translate-y-0.5 
+           transition-all duration-300 ease-[cubic-bezier(0.34,1.56,0.64,1)];
+  }
+  
+  /* Glassmorphism Refinement */
+  .glass-card {
+    @apply bg-white/70 backdrop-blur-xl rounded-2xl border border-white/40 shadow-soft
+           hover:shadow-glow-purple/10 transition-all duration-500;
+    isolation: isolate;
+  }
+
+  .glass-panel {
+    @apply bg-white/60 backdrop-blur-lg border-r border-slate-200/50 shadow-xl;
+    isolation: isolate;
+  }
+
+  /* Enhanced input fields */
+  .input-field {
+    @apply w-full px-4 py-3 border-2 border-slate-100 rounded-xl 
+           focus:outline-none focus:ring-4 focus:ring-primary-400/20 focus:border-primary-400
+           bg-slate-50/50 hover:bg-white hover:border-slate-200
+           transition-all duration-300 placeholder-slate-400 font-medium;
+  }
+  
+  .select-field {
+    @apply w-full px-4 py-3 border-2 border-slate-100 rounded-xl 
+           focus:outline-none focus:ring-4 focus:ring-primary-400/20 focus:border-primary-400
+           bg-slate-50/50 hover:bg-white hover:border-slate-200 cursor-pointer
+           transition-all duration-300 font-medium appearance-none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%2364748b'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    background-size: 1.25rem;
+  }
+}
+
+/* Tab animations */
+.tab-pill {
+  @apply relative z-10 py-2.5 px-4 rounded-xl text-sm font-bold transition-all duration-500 overflow-hidden;
+}
+
+.tab-pill::before {
+  content: '';
+  @apply absolute inset-0 bg-gradient-to-r from-primary-50 to-purple-50 opacity-0 transition-opacity duration-300 -z-10;
+}
+
+.tab-pill.active {
+  @apply text-primary-600 bg-white shadow-md border border-slate-100;
+}
+
+.tab-pill.active::before {
+  @apply opacity-100;
+}
+
+/* Form section grouping */
+.form-section {
+  @apply p-5 bg-slate-50/50 rounded-2xl border border-slate-100/50 mb-6 transition-all duration-300 hover:bg-white hover:shadow-soft;
+}
+
+.form-label {
+  @apply block text-sm font-bold text-slate-700 mb-2.5 flex items-center gap-2;
+}
