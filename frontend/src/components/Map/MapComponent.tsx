@@ -38,7 +38,7 @@ const PolygonDrawer: React.FC<PolygonDrawerProps> = ({ onPolygonDraw, isDrawingM
   const [drawingPoints, setDrawingPoints] = React.useState<AppLatLng[]>([]);
   const [isDrawing, setIsDrawing] = React.useState(false);
 
-  const map = useMapEvents({
+  useMapEvents({
     click: (e) => {
       if (!isDrawingMode) return;
 
@@ -57,7 +57,7 @@ const PolygonDrawer: React.FC<PolygonDrawerProps> = ({ onPolygonDraw, isDrawingM
         setDrawingPoints(newPoints);
       }
     },
-    dblclick: (e) => {
+    dblclick: () => {
       if (!isDrawingMode || !isDrawing) return;
 
       // Finish drawing
