@@ -13,7 +13,7 @@ import { MissionUpdate, FleetUpdate, LatLng } from '../types/shared.types';
 
 @WebSocketGateway({
   cors: {
-    origin: process.env.CORS_ORIGIN || 'http://localhost:5173',
+    origin: true,
     methods: ['GET', 'POST'],
     credentials: true,
   },
@@ -29,7 +29,7 @@ export class MissionGateway implements OnGatewayConnection, OnGatewayDisconnect 
   handleConnection(client: Socket) {
     this.logger.log(`Client connected: ${client.id}`);
     this.connectedClients.set(client.id, client);
-    
+
     // Send welcome message
     client.emit('connection', {
       message: 'Connected to Drone Survey Management System',
@@ -51,7 +51,7 @@ export class MissionGateway implements OnGatewayConnection, OnGatewayDisconnect 
     const { missionId } = data;
     client.join(`mission-${missionId}`);
     this.logger.log(`Client ${client.id} joined mission room: ${missionId}`);
-    
+
     client.emit('joinedMission', {
       missionId,
       message: `Joined mission ${missionId} updates`,
@@ -67,7 +67,7 @@ export class MissionGateway implements OnGatewayConnection, OnGatewayDisconnect 
     const { missionId } = data;
     client.leave(`mission-${missionId}`);
     this.logger.log(`Client ${client.id} left mission room: ${missionId}`);
-    
+
     client.emit('leftMission', {
       missionId,
       message: `Left mission ${missionId} updates`,
@@ -79,7 +79,7 @@ export class MissionGateway implements OnGatewayConnection, OnGatewayDisconnect 
   handleJoinFleet(@ConnectedSocket() client: Socket): void {
     client.join('fleet-updates');
     this.logger.log(`Client ${client.id} joined fleet updates`);
-    
+
     client.emit('joinedFleet', {
       message: 'Joined fleet updates',
       timestamp: new Date().toISOString(),
@@ -90,7 +90,7 @@ export class MissionGateway implements OnGatewayConnection, OnGatewayDisconnect 
   handleLeaveFleet(@ConnectedSocket() client: Socket): void {
     client.leave('fleet-updates');
     this.logger.log(`Client ${client.id} left fleet updates`);
-    
+
     client.emit('leftFleet', {
       message: 'Left fleet updates',
       timestamp: new Date().toISOString(),
@@ -103,7 +103,7 @@ export class MissionGateway implements OnGatewayConnection, OnGatewayDisconnect 
       ...update,
       timestamp: new Date().toISOString(),
     });
-    
+
     this.logger.debug(`Broadcasted mission update for ${missionId}:`, update);
   }
 
@@ -122,7 +122,7 @@ export class MissionGateway implements OnGatewayConnection, OnGatewayDisconnect 
 
     // Also send to fleet updates
     this.server.to('fleet-updates').emit('dronePosition', positionUpdate);
-    
+
     this.logger.debug(`Broadcasted drone position for ${droneId}:`, position);
   }
 
@@ -132,7 +132,7 @@ export class MissionGateway implements OnGatewayConnection, OnGatewayDisconnect 
       ...fleetUpdate,
       timestamp: new Date().toISOString(),
     });
-    
+
     this.logger.debug(`Broadcasted fleet update for ${fleetUpdate.droneId}:`, fleetUpdate);
   }
 
@@ -147,7 +147,7 @@ export class MissionGateway implements OnGatewayConnection, OnGatewayDisconnect 
       ...notification,
       timestamp: new Date().toISOString(),
     });
-    
+
     this.logger.log(`Broadcasted system notification: ${notification.title}`);
   }
 
@@ -162,10 +162,10 @@ export class MissionGateway implements OnGatewayConnection, OnGatewayDisconnect 
 
     // Send to specific mission room
     this.server.to(`mission-${missionId}`).emit('missionStatusChange', statusUpdate);
-    
+
     // Send to fleet updates for dashboard
     this.server.to('fleet-updates').emit('missionStatusChange', statusUpdate);
-    
+
     this.logger.log(`Broadcasted mission status change for ${missionId}: ${status}`);
   }
 
@@ -181,7 +181,7 @@ export class MissionGateway implements OnGatewayConnection, OnGatewayDisconnect 
       ...emergency,
       timestamp: new Date().toISOString(),
     });
-    
+
     this.logger.warn(`Emergency broadcast: ${emergency.type} - ${emergency.message}`);
   }
 

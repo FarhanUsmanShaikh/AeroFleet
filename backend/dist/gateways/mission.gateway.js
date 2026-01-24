@@ -173,7 +173,7 @@ __decorate([
 exports.MissionGateway = MissionGateway = MissionGateway_1 = __decorate([
     (0, websockets_1.WebSocketGateway)({
         cors: {
-            origin: process.env.CORS_ORIGIN || 'http://localhost:5173',
+            origin: true,
             methods: ['GET', 'POST'],
             credentials: true,
         },
