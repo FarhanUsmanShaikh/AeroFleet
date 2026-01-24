@@ -21,11 +21,11 @@ async function bootstrap() {
   }));
 
   // Set global prefix for API routes
-  app.setGlobalPrefix('');
+  app.setGlobalPrefix('api');
 
   const port = process.env.PORT || 3000;
   await app.listen(port);
-  
+
   console.log(`🚀 Drone Survey Management System Backend running on port ${port}`);
   console.log(`📡 WebSocket server available at ws://localhost:${port}/missions`);
   console.log(`🌐 CORS enabled for: ${process.env.CORS_ORIGIN || 'http://localhost:5173'}`);
