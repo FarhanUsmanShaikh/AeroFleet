@@ -1,6 +1,6 @@
 import React, { useRef, useCallback, useEffect } from 'react';
-import { MapContainer, TileLayer, useMapEvents, Polygon, Marker, Popup, Polyline } from 'react-leaflet';
-import { LatLng, Map as LeafletMap } from 'leaflet';
+import { MapContainer, TileLayer, Polygon, Marker, Popup, Polyline } from 'react-leaflet';
+import { Map as LeafletMap } from 'leaflet';
 import type { LatLng as AppLatLng, Waypoint } from '../../../../shared/types';
 import 'leaflet/dist/leaflet.css';
 
@@ -34,40 +34,10 @@ interface PolygonDrawerProps {
 }
 
 // Component for handling polygon drawing
-const PolygonDrawer: React.FC<PolygonDrawerProps> = ({ onPolygonDraw, isDrawingMode }) => {
+const PolygonDrawer: React.FC<PolygonDrawerProps> = ({ isDrawingMode }) => {
   const [drawingPoints, setDrawingPoints] = React.useState<AppLatLng[]>([]);
   const [isDrawing, setIsDrawing] = React.useState(false);
 
-  const map = useMapEvents({
-    click: (e) => {
-      if (!isDrawingMode) return;
-
-      const newPoint: AppLatLng = {
-        latitude: e.latlng.lat,
-        longitude: e.latlng.lng
-      };
-
-      if (!isDrawing) {
-        // Start drawing
-        setIsDrawing(true);
-        setDrawingPoints([newPoint]);
-      } else {
-        // Add point to current polygon
-        const newPoints = [...drawingPoints, newPoint];
-        setDrawingPoints(newPoints);
-      }
-    },
-    dblclick: (e) => {
-      if (!isDrawingMode || !isDrawing) return;
-
-      // Finish drawing
-      if (drawingPoints.length >= 3) {
-        onPolygonDraw?.(drawingPoints);
-      }
-      setIsDrawing(false);
-      setDrawingPoints([]);
-    }
-  });
 
   // Reset drawing when mode changes
   useEffect(() => {
@@ -117,7 +87,7 @@ const FlightPathDisplay: React.FC<{ waypoints: Waypoint[] }> = ({ waypoints }) =
       />
 
       {/* Waypoint markers */}
-      {sortedWaypoints.map((waypoint, index) => (
+      {sortedWaypoints.map((waypoint) => (
         <Marker
           key={waypoint.id}
           position={[waypoint.latitude, waypoint.longitude]}

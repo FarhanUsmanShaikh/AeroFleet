@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import type { MissionConfig, Drone, Polygon, MissionPattern, SensorConfig } from '../../../../shared/types';
+import type { MissionConfig, Drone, Polygon, MissionPattern } from '../../../../shared/types';
 import { apiService } from '../../services/api';
 import { calculatePolygonArea } from '../../utils/mapUtils';
 
