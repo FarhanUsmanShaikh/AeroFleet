@@ -2,6 +2,8 @@
 
 A premium, high-fidelity platform for planning, managing, and monitoring autonomous drone surveys. Designed for large organizations to coordinate remote drone operations with institutional-grade precision and real-time telemetry.
 
+Live Link - https://aerofleet.vercel.app/ - After accessing the live application, please note that the backend is deployed on Render. Due to free-tier limitations, the service may go to sleep when there is no activity. If this happens, it may take 60 seconds to a few minutes for the server to wake up and re-establish the connection. Once it’s active, you can continue using AeroFleet normally.
+
 ## ✨ Premium Features
 
 ### 🎯 Strategic Mission Planning
