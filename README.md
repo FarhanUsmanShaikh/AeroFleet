@@ -80,4 +80,4 @@ Safety is built directly into the core mission loop. The system includes an **au
 
 
 ## 📄 License
-This project is build as an assessment for SDE role.
+This project is build for educational purposes.
